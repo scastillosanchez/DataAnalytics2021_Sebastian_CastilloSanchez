@@ -35,3 +35,9 @@ sampled$Survived <- NULL
 hh <- hclust(dist(sampled), method="ave")
 plot(hh, hang=-1, labels=titanic_train_ctree$Survived[sample])
 
+
+#random forest
+library(randomForest)
+model <- randomForest(Survived~., data = titanic_train_sub, importance=TRUE, ntree=500)
+predTrain <- predict(model, titanic_train_sub, type = "class")
+table(predTrain, titanic_train_sub$Survived)
